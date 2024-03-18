@@ -147,39 +147,175 @@
 							  </li>
 							</ul>
 							<div class="tab-content" id="myTabContent">
-							  <div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
-								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">							
-									<a href="#" class="primary-btn text-uppercase">Search flights</a>									
-								</form>
-							  </div>
-							  <div class="tab-pane fade" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
-								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">						
-									<a href="#" class="primary-btn text-uppercase">Search Hotels</a>									
-								</form>							  	
-							  </div>
-							  <div class="tab-pane fade" id="holiday" role="tabpanel" aria-labelledby="holiday-tab">
-								<form class="form-wrap">
-									<input type="text" class="form-control" name="name" placeholder="From " onfocus="this.placeholder = ''" onblur="this.placeholder = 'From '">									
-									<input type="text" class="form-control" name="to" placeholder="To " onfocus="this.placeholder = ''" onblur="this.placeholder = 'To '">
-									<input type="text" class="form-control date-picker" name="start" placeholder="Start " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start '">
-									<input type="text" class="form-control date-picker" name="return" placeholder="Return " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return '">
-									<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults '">
-									<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child " onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child '">							
-									<a href="#" class="primary-btn text-uppercase">Search Holidays</a>									
-								</form>							  	
-							  </div>
+								<style>
+									.flight-info {
+										margin-top: 20px;
+										padding: 10px;
+										border: 1px solid #ccc;
+										border-radius: 5px;
+										background-color: #f9f9f9;
+									}
+								
+									.flight-info p {
+										margin: 5px 0;
+									}
+								</style>
+								
+								<div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
+									<form class="form-wrap" id="flight-search-form">
+										<input type="text" class="form-control" name="from" placeholder="From" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From'">									
+										<input type="text" class="form-control" name="to" placeholder="To" onfocus="this.placeholder = ''" onblur="this.placeholder = 'To'">
+										<input type="text" class="form-control date-picker" name="start" placeholder="Start" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start'">
+										<input type="text" class="form-control date-picker" name="return" placeholder="Return" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return'">
+										<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults'">
+										<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child'">							
+										<button type="button" class="primary-btn text-uppercase" onclick="searchFlights()">Search flights</button>									
+									</form>
+								</div>
+								
+								<div id="flight-results" style="display: none;"></div>
+								
+								<script>
+									function searchFlights() {
+										const dummyFlights = [
+											{ from: 'New York', to: 'London', start: '2024-03-20', return: '2024-03-25', adults: 2, child: 1, price: 500 },
+											{ from: 'Los Angeles', to: 'Paris', start: '2024-04-15', return: '2024-04-22', adults: 1, child: 0, price: 700 },
+											// Add more dummy flight data as needed
+										];
+								
+										const flightResultsDiv = document.getElementById('flight-results');
+										flightResultsDiv.innerHTML = ''; // Clear previous search results
+								
+										const firstFlight = dummyFlights[0]; // Retrieve the first flight response
+								
+										const flightInfo = document.createElement('div');
+										flightInfo.classList.add('flight-info');
+										flightInfo.innerHTML = `
+											<div>
+												<p><strong>From:</strong> ${firstFlight.from}</p>
+												<p><strong>To:</strong> ${firstFlight.to}</p>
+												<p><strong>Departure:</strong> ${firstFlight.start}</p>
+												<p><strong>Return:</strong> ${firstFlight.return}</p>
+												<p><strong>Adults:</strong> ${firstFlight.adults}</p>
+												<p><strong>Child:</strong> ${firstFlight.child}</p>
+												<p><strong>Price:</strong> $${firstFlight.price}</p>
+											</div>
+										`;
+										flightResultsDiv.appendChild(flightInfo);
+								
+										flightResultsDiv.style.display = 'block'; // Show flight search results
+									}
+								</script>
+								<style>
+									.search-results {
+										margin-top: 20px;
+										padding: 10px;
+										border: 1px solid #ccc;
+										border-radius: 5px;
+										background-color: #f9f9f9;
+									}
+
+									.search-results p {
+										margin: 5px 0;
+									}
+								</style>
+
+								<div class="tab-pane fade" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
+									<form class="form-wrap" id="hotel-search-form">
+										<input type="text" class="form-control" name="destination" placeholder="Destination" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Destination'">									
+										<input type="text" class="form-control date-picker" name="check-in" placeholder="Check-in" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Check-in'">
+										<input type="text" class="form-control date-picker" name="check-out" placeholder="Check-out" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Check-out'">
+										<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults'">
+										<input type="number" min="0" max="20" class="form-control" name="children" placeholder="Children" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Children'">						
+										<button type="button" class="primary-btn text-uppercase" onclick="searchHotels()">Search Hotels</button>									
+									</form>							  	
+								</div>
+
+								<div id="hotel-results" style="display: none;"></div>
+
+								<script>
+									function searchHotels() {
+										const dummyHotels = [
+											{ name: 'Luxury Hotel', location: 'New York', rating: '★★★★★', price: '$200/night' },
+											{ name: 'Beach Resort', location: 'Miami', rating: '★★★★', price: '$150/night' },
+											// Add more dummy hotel data as needed
+										];
+
+										const hotelResultsDiv = document.getElementById('hotel-results');
+										hotelResultsDiv.innerHTML = ''; // Clear previous search results
+
+										const firstHotel = dummyHotels[0]; // Retrieve the first hotel response
+
+										const hotelInfo = document.createElement('div');
+										hotelInfo.classList.add('search-results');
+										hotelInfo.innerHTML = `
+											<p><strong>Name:</strong> ${firstHotel.name}</p>
+											<p><strong>Location:</strong> ${firstHotel.location}</p>
+											<p><strong>Rating:</strong> ${firstHotel.rating}</p>
+											<p><strong>Price:</strong> ${firstHotel.price}</p>
+										`;
+										hotelResultsDiv.appendChild(hotelInfo);
+
+										hotelResultsDiv.style.display = 'block'; // Show hotel search result
+									}
+								</script>
+
+
+								<style>
+									.search-results {
+										margin-top: 20px;
+										padding: 10px;
+										border: 1px solid #ccc;
+										border-radius: 5px;
+										background-color: #f9f9f9;
+									}
+								
+									.search-results p {
+										margin: 5px 0;
+									}
+								</style>
+								
+								<div class="tab-pane fade" id="holiday" role="tabpanel" aria-labelledby="holiday-tab">
+									<form class="form-wrap" id="car-rental-search-form">
+										<input type="text" class="form-control" name="pickup-location" placeholder="Pickup Location" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Pickup Location'">									
+										<input type="text" class="form-control date-picker" name="pickup-date" placeholder="Pickup Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Pickup Date'">
+										<input type="text" class="form-control date-picker" name="return-date" placeholder="Return Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return Date'">
+										<input type="number" min="21" max="99" class="form-control" name="drivers-age" placeholder="Driver's Age" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Driver\'s Age'">
+										<input type="number" min="1" max="20" class="form-control" name="num-passengers" placeholder="Number of Passengers" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Number of Passengers'">						
+										<button type="button" class="primary-btn text-uppercase" onclick="searchCarRentals()">Search Car Rentals</button>									
+									</form>							  	
+								</div>
+								
+								<div id="car-rental-results" style="display: none;"></div>
+								
+								<script>
+									function searchCarRentals() {
+										const dummyCarRentals = [
+											{ location: 'Airport', pickupDate: '2024-07-01', returnDate: '2024-07-07', driversAge: 30, passengers: 4, price: '$500' },
+											// Add more dummy car rental data as needed
+										];
+								
+										const carRentalResultsDiv = document.getElementById('car-rental-results');
+										carRentalResultsDiv.innerHTML = ''; // Clear previous search results
+								
+										const firstCarRental = dummyCarRentals[0]; // Retrieve the first car rental response
+								
+										const carRentalInfo = document.createElement('div');
+										carRentalInfo.classList.add('search-results');
+										carRentalInfo.innerHTML = `
+											<p><strong>Pickup Location:</strong> ${firstCarRental.location}</p>
+											<p><strong>Pickup Date:</strong> ${firstCarRental.pickupDate}</p>
+											<p><strong>Return Date:</strong> ${firstCarRental.returnDate}</p>
+											<p><strong>Driver's Age:</strong> ${firstCarRental.driversAge}</p>
+											<p><strong>Number of Passengers:</strong> ${firstCarRental.passengers}</p>
+											<p><strong>Price:</strong> ${firstCarRental.price}</p>
+										`;
+										carRentalResultsDiv.appendChild(carRentalInfo);
+								
+										carRentalResultsDiv.style.display = 'block'; // Show car rental search result
+									}
+								</script>
+								
 							</div>
 						</div>
 					</div>
