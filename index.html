@@ -161,51 +161,72 @@
 									}
 								</style>
 								
-								<div class="tab-pane fade show active" id="flight" role="tabpanel" aria-labelledby="flight-tab">
+								<div class="tab-pane fade" id="flight" role="tabpanel" aria-labelledby="flight-tab">
 									<form class="form-wrap" id="flight-search-form">
 										<input type="text" class="form-control" name="from" placeholder="From" onfocus="this.placeholder = ''" onblur="this.placeholder = 'From'">									
 										<input type="text" class="form-control" name="to" placeholder="To" onfocus="this.placeholder = ''" onblur="this.placeholder = 'To'">
-										<input type="text" class="form-control date-picker" name="start" placeholder="Start" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Start'">
-										<input type="text" class="form-control date-picker" name="return" placeholder="Return" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return'">
+										<input type="text" class="form-control date-picker" name="departure" placeholder="Departure Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Departure Date'">
+										<input type="text" class="form-control date-picker" name="return" placeholder="Return Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return Date'">
 										<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults'">
-										<input type="number" min="1" max="20" class="form-control" name="child" placeholder="Child" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Child'">							
-										<button type="button" class="primary-btn text-uppercase" onclick="searchFlights()">Search flights</button>									
-									</form>
-								</div>
+										<input type="number" min="0" max="20" class="form-control" name="children" placeholder="Children" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Children'">						
+										<button type="button" class="primary-btn text-uppercase" onclick="searchFlights()">Search Flights</button>
+									</form>	
 								
-								<div id="flight-results" style="display: none;"></div>
+									<!-- Search Results -->
+									<div id="flight-search-results" style="display: none;"></div>
+								
+									<!-- Payment Section -->
+									<div id="flight-payment-section" style="display: none;">
+										<h2>Proceed to Payment</h2>
+										<p>Total Amount: <span id="flight-total-amount"></span></p>
+										<input type="tel" id="flight-phone-number" class="form-control" placeholder="Enter Phone Number">
+										<button type="button" class="primary-btn text-uppercase" onclick="processFlightPayment()">Process Payment</button>
+									</div>
+								</div>
 								
 								<script>
 									function searchFlights() {
-										const dummyFlights = [
-											{ from: 'New York', to: 'London', start: '2024-03-20', return: '2024-03-25', adults: 2, child: 1, price: 500 },
-											{ from: 'Los Angeles', to: 'Paris', start: '2024-04-15', return: '2024-04-22', adults: 1, child: 0, price: 700 },
-											// Add more dummy flight data as needed
-										];
+										// Simulate search results
+										const dummyFlight = { 
+											from: 'New York', 
+											to: 'Los Angeles', 
+											departure: '2024-07-01', 
+											return: '2024-07-07', 
+											adults: 2, 
+											children: 1, 
+											totalPrice: '$800' 
+										};
 								
-										const flightResultsDiv = document.getElementById('flight-results');
-										flightResultsDiv.innerHTML = ''; // Clear previous search results
-								
-										const firstFlight = dummyFlights[0]; // Retrieve the first flight response
-								
-										const flightInfo = document.createElement('div');
-										flightInfo.classList.add('flight-info');
-										flightInfo.innerHTML = `
-											<div>
-												<p><strong>From:</strong> ${firstFlight.from}</p>
-												<p><strong>To:</strong> ${firstFlight.to}</p>
-												<p><strong>Departure:</strong> ${firstFlight.start}</p>
-												<p><strong>Return:</strong> ${firstFlight.return}</p>
-												<p><strong>Adults:</strong> ${firstFlight.adults}</p>
-												<p><strong>Child:</strong> ${firstFlight.child}</p>
-												<p><strong>Price:</strong> $${firstFlight.price}</p>
+										const flightSearchResultsDiv = document.getElementById('flight-search-results');
+										flightSearchResultsDiv.innerHTML = `
+											<div class="search-results">
+												<p><strong>From:</strong> ${dummyFlight.from}</p>
+												<p><strong>To:</strong> ${dummyFlight.to}</p>
+												<p><strong>Departure Date:</strong> ${dummyFlight.departure}</p>
+												<p><strong>Return Date:</strong> ${dummyFlight.return}</p>
+												<p><strong>Adults:</strong> ${dummyFlight.adults}</p>
+												<p><strong>Children:</strong> ${dummyFlight.children}</p>
+												<p><strong>Total Price:</strong> ${dummyFlight.totalPrice}</p>
 											</div>
 										`;
-										flightResultsDiv.appendChild(flightInfo);
+										
+										// Show search results
+										flightSearchResultsDiv.style.display = 'block';
 								
-										flightResultsDiv.style.display = 'block'; // Show flight search results
+										// Show payment section
+										document.getElementById('flight-payment-section').style.display = 'block';
+										// Update total amount for payment
+										document.getElementById('flight-total-amount').innerText = dummyFlight.totalPrice;
+									}
+								
+									function processFlightPayment() {
+										const phoneNumber = document.getElementById('flight-phone-number').value;
+										// Here you can implement actual payment processing logic
+										alert(`Payment processed successfully. Prompt will be sent to ${phoneNumber}.`);
+										// You can also display a receipt here if needed
 									}
 								</script>
+								
 								<style>
 									.search-results {
 										margin-top: 20px;
@@ -223,44 +244,70 @@
 								<div class="tab-pane fade" id="hotel" role="tabpanel" aria-labelledby="hotel-tab">
 									<form class="form-wrap" id="hotel-search-form">
 										<input type="text" class="form-control" name="destination" placeholder="Destination" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Destination'">									
-										<input type="text" class="form-control date-picker" name="check-in" placeholder="Check-in" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Check-in'">
-										<input type="text" class="form-control date-picker" name="check-out" placeholder="Check-out" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Check-out'">
+										<input type="text" class="form-control date-picker" name="check-in" placeholder="Check-in Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Check-in Date'">
+										<input type="text" class="form-control date-picker" name="check-out" placeholder="Check-out Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Check-out Date'">
 										<input type="number" min="1" max="20" class="form-control" name="adults" placeholder="Adults" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Adults'">
 										<input type="number" min="0" max="20" class="form-control" name="children" placeholder="Children" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Children'">						
-										<button type="button" class="primary-btn text-uppercase" onclick="searchHotels()">Search Hotels</button>									
-									</form>							  	
+										<button type="button" class="primary-btn text-uppercase" onclick="searchHotels()">Search Hotels</button>
+									</form>	
+								
+									<!-- Search Results -->
+									<div id="hotel-search-results" style="display: none;"></div>
+								
+									<!-- Payment Section -->
+									<div id="hotel-payment-section" style="display: none;">
+										<h2>Proceed to Payment</h2>
+										<p>Total Amount: <span id="hotel-total-amount"></span></p>
+										<input type="tel" id="hotel-phone-number" class="form-control" placeholder="Enter Phone Number">
+										<button type="button" class="primary-btn text-uppercase" onclick="processHotelPayment()">Process Payment</button>
+									</div>
 								</div>
-
-								<div id="hotel-results" style="display: none;"></div>
-
+								
 								<script>
 									function searchHotels() {
-										const dummyHotels = [
-											{ name: 'Luxury Hotel', location: 'New York', rating: '★★★★★', price: '$200/night' },
-											{ name: 'Beach Resort', location: 'Miami', rating: '★★★★', price: '$150/night' },
-											// Add more dummy hotel data as needed
-										];
-
-										const hotelResultsDiv = document.getElementById('hotel-results');
-										hotelResultsDiv.innerHTML = ''; // Clear previous search results
-
-										const firstHotel = dummyHotels[0]; // Retrieve the first hotel response
-
-										const hotelInfo = document.createElement('div');
-										hotelInfo.classList.add('search-results');
-										hotelInfo.innerHTML = `
-											<p><strong>Name:</strong> ${firstHotel.name}</p>
-											<p><strong>Location:</strong> ${firstHotel.location}</p>
-											<p><strong>Rating:</strong> ${firstHotel.rating}</p>
-											<p><strong>Price:</strong> ${firstHotel.price}</p>
+										// Simulate search results
+										const dummyHotel = { 
+											name: 'Luxury Hotel', 
+											destination: 'Beachside Resort', 
+											checkIn: '2024-07-01', 
+											checkOut: '2024-07-07', 
+											adults: 2, 
+											children: 1, 
+											pricePerNight: '$200',
+											totalPrice: '$1200' 
+										};
+								
+										const hotelSearchResultsDiv = document.getElementById('hotel-search-results');
+										hotelSearchResultsDiv.innerHTML = `
+											<div class="search-results">
+												<p><strong>Hotel Name:</strong> ${dummyHotel.name}</p>
+												<p><strong>Destination:</strong> ${dummyHotel.destination}</p>
+												<p><strong>Check-in Date:</strong> ${dummyHotel.checkIn}</p>
+												<p><strong>Check-out Date:</strong> ${dummyHotel.checkOut}</p>
+												<p><strong>Adults:</strong> ${dummyHotel.adults}</p>
+												<p><strong>Children:</strong> ${dummyHotel.children}</p>
+												<p><strong>Price per Night:</strong> ${dummyHotel.pricePerNight}</p>
+												<p><strong>Total Price:</strong> ${dummyHotel.totalPrice}</p>
+											</div>
 										`;
-										hotelResultsDiv.appendChild(hotelInfo);
-
-										hotelResultsDiv.style.display = 'block'; // Show hotel search result
+										
+										// Show search results
+										hotelSearchResultsDiv.style.display = 'block';
+								
+										// Show payment section
+										document.getElementById('hotel-payment-section').style.display = 'block';
+										// Update total amount for payment
+										document.getElementById('hotel-total-amount').innerText = dummyHotel.totalPrice;
+									}
+								
+									function processHotelPayment() {
+										const phoneNumber = document.getElementById('hotel-phone-number').value;
+										// Here you can implement actual payment processing logic
+										alert(`Payment processed successfully. Prompt will be sent to ${phoneNumber}.`);
+										// You can also display a receipt here if needed
 									}
 								</script>
-
-
+								
 								<style>
 									.search-results {
 										margin-top: 20px;
@@ -282,39 +329,62 @@
 										<input type="text" class="form-control date-picker" name="return-date" placeholder="Return Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Return Date'">
 										<input type="number" min="21" max="99" class="form-control" name="drivers-age" placeholder="Driver's Age" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Driver\'s Age'">
 										<input type="number" min="1" max="20" class="form-control" name="num-passengers" placeholder="Number of Passengers" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Number of Passengers'">						
-										<button type="button" class="primary-btn text-uppercase" onclick="searchCarRentals()">Search Car Rentals</button>									
-									</form>							  	
-								</div>
+										<button type="button" class="primary-btn text-uppercase" onclick="searchCarRentals()">Search Car Rentals</button>
+									</form>	
+									
+									<!-- Search Results -->
+									<div id="search-results" style="display: none;"></div>
 								
-								<div id="car-rental-results" style="display: none;"></div>
+									<!-- Payment Section -->
+									<div id="payment-section" style="display: none;">
+										<h2>Proceed to Payment</h2>
+										<p>Total Amount: <span id="total-amount"></span></p>
+										<input type="tel" id="phone-number" class="form-control" placeholder="Enter Phone Number">
+										<button type="button" class="primary-btn text-uppercase" onclick="processPayment()">Process Payment</button>
+									</div>
+								</div>
 								
 								<script>
 									function searchCarRentals() {
-										const dummyCarRentals = [
-											{ location: 'Airport', pickupDate: '2024-07-01', returnDate: '2024-07-07', driversAge: 30, passengers: 4, price: '$500' },
-											// Add more dummy car rental data as needed
-										];
+										// Simulate search results
+										const dummyCarRental = { 
+											location: 'Airport', 
+											pickupDate: '2024-07-01', 
+											returnDate: '2024-07-07', 
+											driversAge: 30, 
+											passengers: 4, 
+											price: '$500' 
+										};
 								
-										const carRentalResultsDiv = document.getElementById('car-rental-results');
-										carRentalResultsDiv.innerHTML = ''; // Clear previous search results
-								
-										const firstCarRental = dummyCarRentals[0]; // Retrieve the first car rental response
-								
-										const carRentalInfo = document.createElement('div');
-										carRentalInfo.classList.add('search-results');
-										carRentalInfo.innerHTML = `
-											<p><strong>Pickup Location:</strong> ${firstCarRental.location}</p>
-											<p><strong>Pickup Date:</strong> ${firstCarRental.pickupDate}</p>
-											<p><strong>Return Date:</strong> ${firstCarRental.returnDate}</p>
-											<p><strong>Driver's Age:</strong> ${firstCarRental.driversAge}</p>
-											<p><strong>Number of Passengers:</strong> ${firstCarRental.passengers}</p>
-											<p><strong>Price:</strong> ${firstCarRental.price}</p>
+										const searchResultsDiv = document.getElementById('search-results');
+										searchResultsDiv.innerHTML = `
+											<div class="search-results">
+												<p><strong>Pickup Location:</strong> ${dummyCarRental.location}</p>
+												<p><strong>Pickup Date:</strong> ${dummyCarRental.pickupDate}</p>
+												<p><strong>Return Date:</strong> ${dummyCarRental.returnDate}</p>
+												<p><strong>Driver's Age:</strong> ${dummyCarRental.driversAge}</p>
+												<p><strong>Number of Passengers:</strong> ${dummyCarRental.passengers}</p>
+												<p><strong>Price:</strong> ${dummyCarRental.price}</p>
+											</div>
 										`;
-										carRentalResultsDiv.appendChild(carRentalInfo);
+										
+										// Show search results
+										searchResultsDiv.style.display = 'block';
 								
-										carRentalResultsDiv.style.display = 'block'; // Show car rental search result
+										// Show payment section
+										document.getElementById('payment-section').style.display = 'block';
+										// Update total amount for payment
+										document.getElementById('total-amount').innerText = dummyCarRental.price;
+									}
+								
+									function processPayment() {
+										const phoneNumber = document.getElementById('phone-number').value;
+										// Here you can implement actual payment processing logic
+										alert(`Payment processed successfully. Prompt will be sent to ${phoneNumber}.`);
+										// You can also display a receipt here if needed
 									}
 								</script>
+								
 								
 							</div>
 						</div>
@@ -324,7 +394,7 @@
 			<!-- End banner Area -->
 
 			<!-- Start popular-destination Area -->
-			<section class="popular-destination-area section-gap">
+			<!--<section class="popular-destination-area section-gap">
 				<div class="container">
 		            <div class="row d-flex justify-content-center">
 		                <div class="menu-content pb-70 col-lg-8">
@@ -379,7 +449,7 @@
 			</section>
 			<!-- End popular-destination Area -->
 			<!-- Start home-about Area -->
-			<section class="home-about-area">
+			<!--<section class="home-about-area">
 				<div class="container-fluid">
 					<div class="row align-items-center justify-content-end">
 						<div class="col-lg-6 col-md-12 home-about-left">
@@ -403,7 +473,7 @@
 			
 	
 			<!-- Start blog Area -->
-			<section class="recent-blog-area section-gap">
+			<!--<section class="recent-blog-area section-gap">
 				<div class="container">
 					<div class="row d-flex justify-content-center">
 						<div class="menu-content pb-60 col-lg-9">
