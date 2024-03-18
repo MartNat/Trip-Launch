@@ -656,5 +656,52 @@ Copyright &copy;<script>document.write(new Date().getFullYear());</script> All r
 			<script src="js/owl.carousel.min.js"></script>							
 			<script src="js/mail-script.js"></script>	
 			<script src="js/main.js"></script>	
+			<!-- Customerly Live Chat Snippet Code -->
+<script>
+	!function(){var e=window,i=document,t="customerly",n="queue",o="load",r="settings",u=e[t]=e[t]||[];if(u.t){return void u.i("[customerly] SDK already initialized. Snippet included twice.")}u.t=!0;u.loaded=!1;u.o=["event","attribute","update","show","hide","open","close"];u[n]=[];u.i=function(t){e.console&&!u.debug&&console.error&&console.error(t)};u.u=function(e){return function(){var t=Array.prototype.slice.call(arguments);return t.unshift(e),u[n].push(t),u}};u[o]=function(t){u[r]=t||{};if(u.loaded){return void u.i("[customerly] SDK already loaded. Use customerly.update to change settings.")}u.loaded=!0;var e=i.createElement("script");e.type="text/javascript",e.async=!0,e.src="https://messenger.customerly.io/launcher.js";var n=i.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};u.o.forEach(function(t){u[t]=u.u(t)})}();
+   
+	customerly.load({
+		  "app_id": "fbae4887"
+	});
+</script>
+<!-- End of Customerly Live Chat Snippet Code -->
+<script>
+	customerly.load({
+		  "app_id": "fbae4887",
+		  "user_id": "REPLACE WITH YOUR USER ID",
+		  "name": "REPLACE WITH USER NAME",
+		  "email": "REPLACE WITH USER EMAIL",
+		  
+		  
+		  //Attributes are the most powerful thing in Customerly. 
+		  //Discover more: go.customerly.io/attributes
+		  
+		  "attributes": {
+			  "user_type": "pro",
+			  "phone_number": "+35383940993",
+			  "billing_address": "Ground Floor, 71 Lower Baggot Street, Dublin, D02 P593" 
+		  }
+	});
+</script>
+<script>
+	customerly.load({
+		  "app_id": "fbae4887",
+		  "user_id": "REPLACE WITH YOUR USER ID",
+		  "name": "REPLACE WITH USER NAME",
+		  "email": "REPLACE WITH USER EMAIL",
+	  
+		  //If your users can manage different companies in your platform track them this way. 
+		  "company": {
+			  "company_id": "REPLACE WITH COMPANY ID",
+			  "name": "ACME INC",
+			  
+			  //Add any Company properties you might need to track here
+			  "plan_type": "Enterprise",
+			  "employee": 10,
+			  "plan_active": true,
+			  "total_revenue": 340000
+		  }
+	});
+</script>
 		</body>
 	</html>
