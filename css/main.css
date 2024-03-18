@@ -4228,7 +4228,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 /* =================================== */
 .footer-area {
   background: #04091e;
-  padding-top: 100px;
+  padding-top: 5px;
 }
 
 .footer-area .footer-nav li {
@@ -4311,7 +4311,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 .footer-area h6 {
   text-transform: uppercase;
   color: #fff;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   font-size: 16px;
   font-weight: 600;
 }
@@ -4365,12 +4365,13 @@ body.mobile-nav-active #mobile-nav-toggle {
 @media (max-width: 991.98px) {
   .footer-social {
     text-align: left;
-    margin-top: 20px;
+    margin-top: 5px;
   }
 }
 
 .single-footer-widget {
   color: #fff;
+  margin-bottom: 5px;
 }
 
 .single-footer-widget input {
@@ -4392,18 +4393,19 @@ body.mobile-nav-active #mobile-nav-toggle {
   cursor: pointer;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 60px) {
   .single-footer-widget .nw-btn {
-    margin-top: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
   }
   .single-footer-widget .newsletter {
-    padding-bottom: 40px;
+    padding-bottom: 10px;
   }
 }
 
 .single-footer-widget .info {
   position: absolute;
-  margin-top: 20px;
+  margin-top: 5px;
   color: #fff;
   font-size: 12px;
 }
@@ -4459,9 +4461,9 @@ body.mobile-nav-active #mobile-nav-toggle {
   font-weight: 300;
 }
 
-@media (max-width: 991.98px) {
+@media (max-width: 60px) {
   .single-footer-widget {
-    margin-bottom: 70px;
+    margin-bottom: 8px;
   }
 }
 
@@ -4486,8 +4488,7 @@ body.mobile-nav-active #mobile-nav-toggle {
 }
 
 .footer-bottom {
-  padding-top: 40px;
-  margin-top: 20px;
+  padding-top: 3px;
   border-top: 1px solid #333;
 }
 
