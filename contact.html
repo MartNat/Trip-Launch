@@ -148,7 +148,18 @@
 									</div>
 									<div class="col-lg-12">
 										<div class="alert-msg" style="text-align: left;"></div>
-										<button class="genric-btn primary" style="float: right;">Send Message</button>											
+										<button class="genric-btn primary" style="float: right;" onclick="sendMessage()">Send Message</button>
+										<p id="confirmation-message" style="display: none;">Message sent! You'll receive a response via email shortly.</p>
+
+										<script>
+											function sendMessage() {
+												// Code to send the message goes here
+												
+												// Display confirmation message
+												document.getElementById("confirmation-message").style.display = "block";
+											}
+										</script>
+											
 									</div>
 								</div>
 							</form>	
